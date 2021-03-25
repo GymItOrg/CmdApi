@@ -34,6 +34,10 @@ namespace CmdApi
             services.AddDbContext<CommandContext>
                     (opt => opt.UseSqlServer(Configuration["Data:CommandAPIConnection:ConnectionString"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<CmdApiContext>
+                (opt => opt.UseSqlServer(Configuration["Data:CommandAPIConnection:ConnectionString"]));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
