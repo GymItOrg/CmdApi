@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CmdApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CmdApi.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    
     public class CommandsController: ControllerBase
     {
         private readonly CommandContext _context;

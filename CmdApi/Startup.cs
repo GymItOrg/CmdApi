@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 
 namespace CmdApi
 {
@@ -34,6 +36,8 @@ namespace CmdApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
             services.AddDbContext<CommandContext>
                     (opt => opt.UseSqlServer(Configuration["Data:CommandAPIConnection:ConnectionString"]));
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
@@ -67,7 +71,7 @@ namespace CmdApi
                         ValidateAudience = true,
                         ValidAudience = Configuration["JWT:ValidAudience"],
                         ValidIssuer = Configuration["JWT:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:IssuerSigningKey"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:IssuerSigningKey"]))
                     };
                 });
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
@@ -77,10 +81,19 @@ namespace CmdApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                IdentityModelEventSource.ShowPII = true;
+            }
+            
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints => {
-                endpoints.MapDefaultControllerRoute();
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                //endpoints.MapDefaultControllerRoute();
+                //endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
         }
