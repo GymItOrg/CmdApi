@@ -36,7 +36,8 @@ namespace CmdApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            var keyByteArray = Encoding.ASCII.GetBytes(Configuration["JWT:Secret"]);
+            var signingKey = new SymmetricSecurityKey(keyByteArray);
 
             services.AddDbContext<CommandContext>
                     (opt => opt.UseSqlServer(Configuration["Data:CommandAPIConnection:ConnectionString"]));
@@ -71,7 +72,7 @@ namespace CmdApi
                         ValidateAudience = true,
                         ValidAudience = Configuration["JWT:ValidAudience"],
                         ValidIssuer = Configuration["JWT:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:IssuerSigningKey"]))
+                        IssuerSigningKey = signingKey
                     };
                 });
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
@@ -86,9 +87,9 @@ namespace CmdApi
                 app.UseDeveloperExceptionPage();
                 IdentityModelEventSource.ShowPII = true;
             }
-            
-            app.UseRouting();
             app.UseAuthentication();
+            app.UseRouting();
+           
             app.UseAuthorization();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();

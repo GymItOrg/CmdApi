@@ -13,6 +13,7 @@ namespace CmdApi.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlacesController : ControllerBase
     {
         private readonly CmdApiContext _context;
