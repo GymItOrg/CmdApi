@@ -17,5 +17,10 @@ namespace CmdApi.Models
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
+        public int Age { get; set; }
+        public string Gender { get; set; }
+        public string bodyType { get; set; }
+
+
     }
 }

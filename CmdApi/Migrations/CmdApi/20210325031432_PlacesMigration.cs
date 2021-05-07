@@ -16,7 +16,9 @@ namespace CmdApi.Migrations.CmdApi
                     Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false)
+                    Rating = table.Column<int>(nullable: false),
+                    Rate = table.Column<int>(nullable: false),
+                    CatersTo = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
