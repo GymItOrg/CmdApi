@@ -3,14 +3,16 @@ using CmdApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CmdApi.Migrations.CmdApi
 {
     [DbContext(typeof(CmdApiContext))]
-    partial class CmdApiContextModelSnapshot : ModelSnapshot
+    [Migration("20210508002925_PlacesUpdate2")]
+    partial class PlacesUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

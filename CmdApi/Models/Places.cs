@@ -14,6 +14,10 @@ namespace CmdApi.Models
         public int Rating { get; set; }
         public int Rate { get; set; }
         public string CatersTo { get; set; }
+        public int numTreadmills { get; set; }
+        public bool hasMachines { get; set; }
+        public bool hasFreeweights { get; set; }
+
 
     }
 }
