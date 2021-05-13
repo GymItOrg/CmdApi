@@ -44,7 +44,13 @@ namespace CmdApi.Controllers
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.userName
+                UserName = model.userName,
+                Age = model.Age,
+                Gender = model.Gender,
+                bodyType = model.bodyType,
+                height = model.height,
+                weight = model.weight,
+                needFreeWeights = model.needFreeWeights            
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
